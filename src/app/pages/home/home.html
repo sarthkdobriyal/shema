@@ -21,3 +21,24 @@
     />
   </div>
 </section>
+
+<section class="px-8 py-16 text-center">
+  <h2 class="text-4xl font-extrabold text-slate-900 mb-2">Featured Categories</h2>
+  <div class="w-16 h-1 bg-yellow-400 mx-auto mb-12"></div>
+
+  <div class="flex flex-wrap justify-center gap-10">
+    @for (cat of featuredCategories; track cat.label) {
+      <div class="w-72 border border-gray-200 shadow-sm">
+        <img [src]="cat.imageUrl" [alt]="cat.label" class="w-full h-80 object-cover" />
+        <div class="py-4">
+          <a
+            [routerLink]="cat.routerLink"
+            class="inline-block bg-yellow-400 rounded-full px-6 py-2 font-bold text-slate-900"
+          >
+            SHOP NOW
+          </a>
+        </div>
+      </div>
+    }
+  </div>
+</section>
