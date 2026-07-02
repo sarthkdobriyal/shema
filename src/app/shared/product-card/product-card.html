@@ -1,0 +1,15 @@
+<a
+  [routerLink]="['/product', product().id]"
+  class="w-64 border border-gray-200 shadow-sm block hover:shadow-md transition"
+>
+  <img
+    [src]="product().imageUrl"
+    [alt]="product().name"
+    class="w-full h-72 object-cover"
+  />
+  <div class="p-4">
+    <h3 class="font-bold text-slate-900">{{ product().name }}</h3>
+    <p class="text-sm text-slate-600 mb-2">{{ product().description }}</p>
+    <p class="font-bold text-slate-900">${{ product().price.toFixed(2) }}</p>
+  </div>
+</a>
