@@ -8,6 +8,7 @@ export interface Product {
   imageUrl: string;
   description: string;
   sizes: string[];
+  highlights: string[];
 }
 
 export const PRODUCTS: Product[] = [
@@ -19,6 +20,7 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?w=600',
     description: 'A crisp, tailored white shirt for everyday wear.',
     sizes: ['S', 'M', 'L', 'XL'],
+    highlights: ['100% cotton', 'Machine washable', 'Tailored fit'],
   },
   {
     id: 2,
@@ -28,6 +30,7 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://images.unsplash.com/photo-1593032465175-481ac7f401a0?w=600',
     description: 'Sharp black blazer suitable for formal occasions.',
     sizes: ['M', 'L', 'XL'],
+    highlights: ['Slim tailored cut', 'Two-button closure', 'Dry clean only'],
   },
   {
     id: 3,
@@ -37,6 +40,7 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://images.unsplash.com/photo-1523205771623-e0faa4d2813d?w=600',
     description: 'Rugged denim jacket for a casual look.',
     sizes: ['S', 'M', 'L'],
+    highlights: ['Sturdy cotton denim', 'Button-front closure', 'Classic collar'],
   },
   {
     id: 4,
@@ -46,6 +50,7 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?w=600',
     description: 'Comfortable slim fit trousers for daily use.',
     sizes: ['30', '32', '34', '36'],
+    highlights: ['Stretch fabric blend', 'Slim tapered leg', 'Machine washable'],
   },
   {
     id: 5,
@@ -55,6 +60,7 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600',
     description: 'Lightweight sneakers for all-day comfort.',
     sizes: ['8', '9', '10', '11'],
+    highlights: ['Breathable mesh upper', 'Cushioned insole', 'Rubber outsole'],
   },
   {
     id: 6,
@@ -64,6 +70,7 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://images.unsplash.com/photo-1583391733956-6c78276477e2?w=600',
     description: 'Elegant floral kurti with matching pants.',
     sizes: ['S', 'M', 'L'],
+    highlights: ['Soft rayon fabric', 'Includes matching pants', 'Hand wash recommended'],
   },
   {
     id: 7,
@@ -73,6 +80,7 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=600',
     description: 'Light and breezy dress, perfect for summer.',
     sizes: ['XS', 'S', 'M', 'L'],
+    highlights: ['Lightweight breathable fabric', 'Relaxed A-line fit', 'Machine washable'],
   },
   {
     id: 8,
@@ -82,6 +90,7 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=600',
     description: 'Flattering high-waist jeans with stretch fit.',
     sizes: ['26', '28', '30', '32'],
+    highlights: ['Stretch denim', 'High-rise waist', 'Five-pocket styling'],
   },
   {
     id: 9,
@@ -91,6 +100,7 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://images.unsplash.com/photo-1551803091-e20673f15770?w=600',
     description: 'Soft cropped cardigan, easy to layer.',
     sizes: ['S', 'M', 'L'],
+    highlights: ['Soft knit fabric', 'Cropped length', 'Easy layering piece'],
   },
   {
     id: 10,
@@ -100,5 +110,6 @@ export const PRODUCTS: Product[] = [
     imageUrl: 'https://images.unsplash.com/photo-1543163521-1bf539c55dd2?w=600',
     description: 'Elegant strappy heels for evening wear.',
     sizes: ['6', '7', '8', '9'],
+    highlights: ['Faux leather straps', 'Cushioned footbed', 'Adjustable buckle closure'],
   },
 ];
