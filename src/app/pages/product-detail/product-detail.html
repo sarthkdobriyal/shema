@@ -1,0 +1,102 @@
+@if (product(); as p) {
+  <section class="px-8 py-12">
+    <!-- Product Detail -->
+    <div class="flex flex-col md:flex-row gap-12 mb-16">
+      <!-- Image -->
+      <div class="flex-1">
+        <img
+          [src]="p.imageUrl"
+          [alt]="p.name"
+          class="w-full max-w-lg rounded-lg object-cover"
+        />
+      </div>
+
+      <!-- Info -->
+      <div class="flex-1 flex flex-col gap-5">
+        <h1 class="text-3xl font-extrabold text-slate-900">{{ p.name }}</h1>
+        <p class="text-2xl font-bold text-slate-900">${{ p.price.toFixed(2) }}</p>
+        <p class="text-slate-600">{{ p.description }}</p>
+
+        <!-- Size -->
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-1">Size</label>
+          <select
+            class="border rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+            [value]="selectedSize()"
+            (change)="selectedSize.set($any($event.target).value)"
+          >
+            <option value="" disabled>Select a size</option>
+            @for (size of p.sizes; track size) {
+              <option [value]="size">{{ size }}</option>
+            }
+          </select>
+        </div>
+
+        <!-- Quantity -->
+        <div>
+          <label class="block text-sm font-semibold text-slate-700 mb-1">Quantity</label>
+          <div class="flex items-center gap-3">
+            <button
+              type="button"
+              (click)="decrement()"
+              class="w-9 h-9 border border-slate-300 rounded-full font-bold text-lg flex items-center justify-center hover:bg-slate-100"
+            >
+              −
+            </button>
+            <span class="w-8 text-center font-semibold text-slate-900">{{ quantity() }}</span>
+            <button
+              type="button"
+              (click)="increment()"
+              class="w-9 h-9 border border-slate-300 rounded-full font-bold text-lg flex items-center justify-center hover:bg-slate-100"
+            >
+              +
+            </button>
+          </div>
+        </div>
+
+        <!-- Actions -->
+        <div class="flex gap-4 mt-2">
+          <button
+            type="button"
+            class="flex-1 bg-yellow-400 rounded-full py-3 font-bold text-slate-900 hover:bg-yellow-500 transition"
+          >
+            ADD TO BAG
+          </button>
+          <button
+            type="button"
+            aria-label="Add to wishlist"
+            class="w-12 h-12 border-2 border-yellow-400 rounded-full flex items-center justify-center text-xl hover:bg-yellow-50 transition"
+          >
+            ♡
+          </button>
+        </div>
+
+        <!-- Highlights -->
+        <div class="mt-2 border-t border-gray-200 pt-4">
+          <h3 class="font-bold text-slate-900 mb-2">Details</h3>
+          <p class="font-semibold text-slate-700 mb-2">Highlights</p>
+          <ul class="list-disc list-inside text-slate-600 space-y-1">
+            @for (h of p.highlights; track h) {
+              <li>{{ h }}</li>
+            }
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recommended Products -->
+    @if (recommended().length > 0) {
+      <div>
+        <h2 class="text-2xl font-extrabold text-slate-900 mb-2">Recommended Products</h2>
+        <div class="w-16 h-1 bg-yellow-400 mb-8"></div>
+        <div class="flex flex-wrap gap-8">
+          @for (rec of recommended(); track rec.id) {
+            <app-product-card [product]="rec" />
+          }
+        </div>
+      </div>
+    }
+  </section>
+} @else {
+  <div class="px-8 py-20 text-center text-slate-500 text-lg">Product not found.</div>
+}
