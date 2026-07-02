@@ -1,4 +1,4 @@
-import { Component, computed, input, signal } from '@angular/core';
+import { Component, computed, effect, input, signal } from '@angular/core';
 import { PRODUCTS } from '../../data/products';
 import { ProductCard } from '../../shared/product-card/product-card';
 
@@ -21,6 +21,43 @@ export class ProductDetail {
 
   quantity = signal(1);
   selectedSize = signal('');
+
+  constructor() {
+    effect(() => {
+      const p = this.product();
+      if (!p) return;
+
+      const config = {
+        garment_url: p.imageUrl,
+        product_id: String(p.id),
+        product_title: p.name,
+        product_description: p.description,
+        product_type: 'topwear',
+        vendor: 'Shema',
+        tags: p.highlights,
+      };
+
+      console.log('[StyleBuddy] Setting config:', config);
+      (globalThis as any).StyleBuddyTryOn = config;
+
+      // Check if the widget script has already loaded and exposes a reinit API
+      const w = globalThis as any;
+      console.log('[StyleBuddy] Script loaded? window.StyleBuddyWidget =', w.StyleBuddyWidget);
+      console.log('[StyleBuddy] Script loaded? window.__styleBuddy =', w.__styleBuddy);
+      console.log('[StyleBuddy] All StyleBuddy-related globals:', Object.keys(w).filter(k => k.toLowerCase().includes('stylebuddy') || k.toLowerCase().includes('tryon')));
+
+      // If the widget exposes a reinit / update method, call it
+      if (typeof w.StyleBuddyWidget?.init === 'function') {
+        console.log('[StyleBuddy] Calling StyleBuddyWidget.init()');
+        w.StyleBuddyWidget.init();
+      } else if (typeof w.StyleBuddyTryOnInit === 'function') {
+        console.log('[StyleBuddy] Calling StyleBuddyTryOnInit()');
+        w.StyleBuddyTryOnInit();
+      } else {
+        console.warn('[StyleBuddy] No reinit function found. Widget may have loaded before config was set.');
+      }
+    });
+  }
 
   increment() {
     this.quantity.update((q) => q + 1);
