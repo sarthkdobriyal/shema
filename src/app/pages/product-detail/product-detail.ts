@@ -27,7 +27,7 @@ export class ProductDetail {
       const p = this.product();
       if (!p) return;
 
-      const config = {
+      (globalThis as any).StyleBuddyTryOn = {
         garment_url: p.imageUrl,
         product_id: String(p.id),
         product_title: p.name,
@@ -37,26 +37,29 @@ export class ProductDetail {
         tags: p.highlights,
       };
 
-      console.log('[StyleBuddy] Setting config:', config);
-      (globalThis as any).StyleBuddyTryOn = config;
+      this.updateWidgetImage(p.imageUrl);
+    });
+  }
 
-      // Check if the widget script has already loaded and exposes a reinit API
-      const w = globalThis as any;
-      console.log('[StyleBuddy] Script loaded? window.StyleBuddyWidget =', w.StyleBuddyWidget);
-      console.log('[StyleBuddy] Script loaded? window.__styleBuddy =', w.__styleBuddy);
-      console.log('[StyleBuddy] All StyleBuddy-related globals:', Object.keys(w).filter(k => k.toLowerCase().includes('stylebuddy') || k.toLowerCase().includes('tryon')));
+  // The widget's own preview <img id="outfit_image"> only gets the garment_url
+  // set once, when its script builds its DOM. It exposes no update API, but the
+  // element itself is a stable, addressable node, so we patch its src directly
+  // instead of reloading the widget (which would close the open panel).
+  private updateWidgetImage(imageUrl: string) {
+    const existing = document.getElementById('outfit_image') as HTMLImageElement | null;
+    if (existing) {
+      existing.src = imageUrl;
+      return;
+    }
 
-      // If the widget exposes a reinit / update method, call it
-      if (typeof w.StyleBuddyWidget?.init === 'function') {
-        console.log('[StyleBuddy] Calling StyleBuddyWidget.init()');
-        w.StyleBuddyWidget.init();
-      } else if (typeof w.StyleBuddyTryOnInit === 'function') {
-        console.log('[StyleBuddy] Calling StyleBuddyTryOnInit()');
-        w.StyleBuddyTryOnInit();
-      } else {
-        console.warn('[StyleBuddy] No reinit function found. Widget may have loaded before config was set.');
+    const observer = new MutationObserver(() => {
+      const img = document.getElementById('outfit_image') as HTMLImageElement | null;
+      if (img) {
+        img.src = imageUrl;
+        observer.disconnect();
       }
     });
+    observer.observe(document.body, { childList: true, subtree: true });
   }
 
   increment() {
