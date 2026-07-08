@@ -37,29 +37,13 @@ export class ProductDetail {
         tags: p.highlights,
       };
 
-      this.updateWidgetImage(p.imageUrl);
+      // The widget only reads window.StyleBuddyTryOn on script init and when
+      // this event fires. Without it, SPA navigation leaves the widget stuck
+      // on whatever view it rendered at open time (e.g. the "visit a product
+      // page" placeholder). Its handler re-reads the global, updates
+      // #outfit_image, and swaps the placeholder for the try-on view.
+      window.dispatchEvent(new Event('stylebuddy-tryon-update'));
     });
-  }
-
-  // The widget's own preview <img id="outfit_image"> only gets the garment_url
-  // set once, when its script builds its DOM. It exposes no update API, but the
-  // element itself is a stable, addressable node, so we patch its src directly
-  // instead of reloading the widget (which would close the open panel).
-  private updateWidgetImage(imageUrl: string) {
-    const existing = document.getElementById('outfit_image') as HTMLImageElement | null;
-    if (existing) {
-      existing.src = imageUrl;
-      return;
-    }
-
-    const observer = new MutationObserver(() => {
-      const img = document.getElementById('outfit_image') as HTMLImageElement | null;
-      if (img) {
-        img.src = imageUrl;
-        observer.disconnect();
-      }
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
   }
 
   increment() {
