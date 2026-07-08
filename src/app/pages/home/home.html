@@ -1,9 +1,9 @@
-<section class="bg-yellow-300 flex flex-col md:flex-row items-center px-8 md:px-20 py-16 gap-8">
-  <div class="flex-1">
+<section class="bg-yellow-300 flex flex-col md:flex-row items-center px-4 sm:px-8 md:px-20 py-10 sm:py-16 gap-8">
+  <div class="flex-1 text-center md:text-left">
     <p class="uppercase font-semibold tracking-wide text-slate-900 mb-3">
       Up to 25% discount
     </p>
-    <h1 class="text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
+    <h1 class="text-4xl sm:text-5xl md:text-6xl font-extrabold text-slate-900 leading-tight mb-6">
       Checkout The Best<br />Fashion Style
     </h1>
     <a
@@ -17,23 +17,23 @@
     <img
       src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=700"
       alt="Fashion model"
-      class="max-h-[500px] object-cover rounded"
+      class="w-full max-w-sm md:max-w-none max-h-72 sm:max-h-96 md:max-h-125 object-cover rounded"
     />
   </div>
 </section>
 
-<section class="px-8 py-16 text-center">
-  <h2 class="text-4xl font-extrabold text-slate-900 mb-2">Featured Categories</h2>
-  <div class="w-16 h-1 bg-yellow-400 mx-auto mb-12"></div>
+<section class="px-4 sm:px-8 py-12 sm:py-16 text-center">
+  <h2 class="text-3xl sm:text-4xl font-extrabold text-slate-900 mb-2">Featured Categories</h2>
+  <div class="w-16 h-1 bg-yellow-400 mx-auto mb-10 sm:mb-12"></div>
 
-  <div class="flex flex-wrap justify-center gap-10">
+  <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-10">
     @for (cat of featuredCategories; track cat.label) {
-      <div class="w-72 border border-gray-200 shadow-sm">
-        <img [src]="cat.imageUrl" [alt]="cat.label" class="w-full h-80 object-cover" />
+      <div class="border border-gray-200 shadow-sm">
+        <img [src]="cat.imageUrl" [alt]="cat.label" class="w-full h-40 sm:h-60 lg:h-80 object-cover" />
         <div class="py-4">
           <a
             [routerLink]="cat.routerLink"
-            class="inline-block bg-yellow-400 rounded-full px-6 py-2 font-bold text-slate-900"
+            class="inline-block bg-yellow-400 rounded-full px-4 sm:px-6 py-2 text-sm sm:text-base font-bold text-slate-900"
           >
             SHOP NOW
           </a>

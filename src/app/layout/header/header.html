@@ -1,9 +1,9 @@
 <header class="w-full">
   <div class="h-2 bg-slate-700"></div>
-  <div class="flex items-center justify-between gap-6 px-8 py-4 bg-white">
-    <a routerLink="/" class="text-3xl font-extrabold tracking-tight text-slate-900">SHEMA</a>
+  <div class="flex items-center justify-between gap-3 sm:gap-6 px-4 sm:px-8 py-4 bg-white">
+    <a routerLink="/" (click)="closeMenu()" class="text-2xl sm:text-3xl font-extrabold tracking-tight text-slate-900">SHEMA</a>
 
-    <div class="flex-1 max-w-2xl flex">
+    <div class="hidden md:flex flex-1 max-w-2xl">
       <input
         type="text"
         placeholder="Search for products"
@@ -19,7 +19,7 @@
       </button>
     </div>
 
-    <div class="flex items-center gap-3">
+    <div class="hidden md:flex items-center gap-3">
       <a
         routerLink="/account"
         aria-label="Account"
@@ -39,11 +39,73 @@
         >🛒</a
       >
     </div>
+
+    <div class="flex items-center gap-2 md:hidden">
+      <a
+        routerLink="/cart"
+        (click)="closeMenu()"
+        aria-label="Cart"
+        class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-yellow-400"
+        >🛒</a
+      >
+      <button
+        type="button"
+        (click)="toggleMenu()"
+        [attr.aria-expanded]="isMenuOpen()"
+        aria-label="Toggle menu"
+        class="w-10 h-10 flex items-center justify-center rounded-full border-2 border-yellow-400 text-xl"
+      >
+        {{ isMenuOpen() ? '✕' : '☰' }}
+      </button>
+    </div>
   </div>
 
-  <nav class="flex items-center justify-center gap-12 py-3 bg-white border-t border-gray-100">
+  <nav aria-label="Primary" class="hidden md:flex items-center justify-center gap-12 py-3 bg-white border-t border-gray-100">
     <a routerLink="/" class="font-medium text-slate-900 hover:text-yellow-600">Home</a>
     <a routerLink="/men" class="font-medium text-slate-900 hover:text-yellow-600">Men</a>
     <a routerLink="/women" class="font-medium text-slate-900 hover:text-yellow-600">Women</a>
   </nav>
+
+  @if (isMenuOpen()) {
+    <div class="md:hidden bg-white border-t border-gray-100 px-4 py-4 flex flex-col gap-4">
+      <div class="flex">
+        <input
+          type="text"
+          placeholder="Search for products"
+          aria-label="Search products"
+          class="w-full border-2 border-yellow-400 rounded-l-full px-4 py-2 focus:outline-none"
+        />
+        <button
+          type="button"
+          aria-label="Search"
+          class="bg-yellow-400 border-2 border-yellow-400 rounded-r-full px-4 flex items-center justify-center"
+        >
+          🔍
+        </button>
+      </div>
+
+      <nav aria-label="Primary" class="flex flex-col gap-3">
+        <a routerLink="/" (click)="closeMenu()" class="font-medium text-slate-900 hover:text-yellow-600">Home</a>
+        <a routerLink="/men" (click)="closeMenu()" class="font-medium text-slate-900 hover:text-yellow-600">Men</a>
+        <a routerLink="/women" (click)="closeMenu()" class="font-medium text-slate-900 hover:text-yellow-600">Women</a>
+      </nav>
+
+      <div class="flex items-center gap-3 pt-2 border-t border-gray-100">
+        <a
+          routerLink="/account"
+          (click)="closeMenu()"
+          aria-label="Account"
+          class="w-11 h-11 flex items-center justify-center rounded-full border-2 border-yellow-400"
+          >👤</a
+        >
+        <a
+          routerLink="/wishlist"
+          (click)="closeMenu()"
+          aria-label="Wishlist"
+          class="w-11 h-11 flex items-center justify-center rounded-full border-2 border-yellow-400"
+          >♡</a
+        >
+      </div>
+    </div>
+  }
 </header>
